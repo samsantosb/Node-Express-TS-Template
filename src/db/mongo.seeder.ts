@@ -1,4 +1,4 @@
-import { UserModel } from "../user/schema/user.model";
+import { UserModel } from "../user/models/user.model";
 import { mongoConnect, mongoDisconnect } from "./mongo.connection";
 
 async function seed() {

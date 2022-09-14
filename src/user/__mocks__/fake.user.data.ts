@@ -1,4 +1,4 @@
-import { User } from "../model/user.model";
+import { User } from "../models/user.model";
 
 export const fakeUsers: User[] = [
   {
