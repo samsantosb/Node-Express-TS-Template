@@ -1,4 +1,4 @@
-import { User } from "./../user/schema/user.schema";
+import { UserModel } from "../user/schema/user.model";
 import { mongoConnect, mongoDisconnect } from "./mongo.connection";
 
 async function seed() {
@@ -26,7 +26,7 @@ async function seed() {
   mongoConnect();
 
   for (const user of users) {
-    const newUser = new User(user);
+    const newUser = new UserModel(user);
     try {
       await newUser.save();
     } catch (error) {

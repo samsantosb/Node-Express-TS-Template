@@ -1,7 +1,7 @@
 //create a user schema using mongoose ts
-import mongoose from "mongoose";
+import { Schema, Model, InferSchemaType, model } from "mongoose";
 
-const userSchema = new mongoose.Schema({
+const UserSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -20,4 +20,6 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-export const User = mongoose.model("User", userSchema);
+export type User = InferSchemaType<typeof UserSchema>;
+
+export const UserModel: Model<User> = model("User", UserSchema);

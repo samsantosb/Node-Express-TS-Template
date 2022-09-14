@@ -1,7 +1,9 @@
 import { mongoConnect } from "../db/mongo.connection";
+import { repo } from "./repositories/user.repository";
 
-async function user() {
-  await mongoConnect();
+function user() {
+  mongoConnect();
+  repo.getAllUsers().then((users) => console.log(users));
   console.log("Hello World");
 }
 
