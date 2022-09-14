@@ -14,7 +14,7 @@ const UserSchema = new Schema({
     type: Number,
     required: true,
   },
-  CPF: {
+  cpf: {
     type: String,
     required: true,
   },

@@ -4,33 +4,24 @@ import { Model, Types } from "mongoose";
 export class UserRepository {
   constructor(private readonly userModel: Model<User>) {}
 
-  async getAllUsers(): Promise<User[]> {
-    return this.userModel.find({});
+  async getAll(): Promise<User[]> {
+    return this.userModel.find();
   }
 
-  async getUserById(id: string): Promise<User | null> {
-    if (Types.ObjectId.isValid(id)) {
-      return this.userModel.findById(id);
-    }
-    return null;
+  async getById(id: string): Promise<User | null> {
+    return this.userModel.findById(id);
   }
 
-  async createUser(user: User): Promise<User> {
+  async create(user: User): Promise<User> {
     return this.userModel.create(user);
   }
 
   async update(id: string, user: User): Promise<User | null> {
-    if (Types.ObjectId.isValid(id)) {
-      return this.userModel.findByIdAndUpdate(id, user, { new: true });
-    }
-    return null;
+    return this.userModel.findByIdAndUpdate(id, user, { new: true });
   }
 
   async delete(id: string) {
-    if (Types.ObjectId.isValid(id)) {
-      return this.userModel.findByIdAndDelete(id);
-    }
-    return null;
+    return this.userModel.findByIdAndDelete(id);
   }
 }
 
