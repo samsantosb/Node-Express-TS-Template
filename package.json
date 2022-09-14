@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "start": "ts-node-esm app.ts"
+  },
+  "dependencies": {
+    "@types/mongoose": "^5.11.97",
+    "@types/node": "^18.7.18",
+    "dotenv": "^16.0.2",
+    "mongoose": "^5.13.8"
+  },
+  "devDependencies": {
+    "typescript": "^4.8.3"
+  }
+}
