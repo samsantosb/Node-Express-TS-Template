@@ -1,6 +1,6 @@
 import { cpfRegex, emailRegex } from "./regex";
 
-export const dataValidator = {
+export const userValidator = {
   isValidName(name: string): string {
     if (name.length >= 3) {
       return name;

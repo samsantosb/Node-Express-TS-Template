@@ -1,6 +1,6 @@
-import { UserDto } from "../dtos/user.dto";
+import { User } from "../schema/user.model";
 
-export const fakeUsers: UserDto[] = [
+export const fakeUsers: User[] = [
   {
     name: "John Doe",
     email: "john@gmail.com",

@@ -1,8 +1,13 @@
+import { IUserDto } from "./../dtos/user.dto";
+import { UserDto } from "../dtos/user.dto";
 import { UserRepository } from "../repositories/user.repository";
 import { User } from "../schema/user.model";
 
 export class UserService {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(
+    private readonly UserDto: IUserDto,
+    private readonly userRepository: UserRepository
+  ) {}
 
   async getAllUsers(): Promise<User[]> {
     return this.userRepository.getAll();
@@ -13,10 +18,12 @@ export class UserService {
   }
 
   async createUser(user: User): Promise<User> {
+    const newUser = new this.UserDto(user.name, user.email, user.age, user.cpf);
     return this.userRepository.create(user);
   }
 
   async update(id: string, user: User): Promise<User | null> {
+    const newUser = new this.UserDto(user.name, user.email, user.age, user.cpf);
     return this.userRepository.update(id, user);
   }
 
