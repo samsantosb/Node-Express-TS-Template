@@ -10,24 +10,44 @@ export class UserService {
   ) {}
 
   async getAllUsers(): Promise<User[]> {
-    return this.userRepository.getAll();
+    try {
+      return this.userRepository.getAll();
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async getUserById(id: string): Promise<User | null> {
-    return this.userRepository.getById(id);
+    try {
+      return this.userRepository.getById(id);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async createUser(user: User): Promise<User> {
     const newUser = new this.UserDto(user.name, user.email, user.age, user.cpf);
-    return this.userRepository.create(user);
+    try {
+      return this.userRepository.create(newUser);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async update(id: string, user: User): Promise<User | null> {
     const newUser = new this.UserDto(user.name, user.email, user.age, user.cpf);
-    return this.userRepository.update(id, user);
+    try {
+      return this.userRepository.update(id, newUser);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async delete(id: string): Promise<User | null> {
-    return this.userRepository.delete(id);
+    try {
+      return this.userRepository.delete(id);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }
