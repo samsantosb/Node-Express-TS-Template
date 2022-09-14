@@ -1,6 +1,6 @@
 import { cpfRegex } from "./../utils/regex";
 import { emailRegex } from "../utils/regex";
-import { User } from "../schema/user.model";
+import { User } from "../model/user.model";
 
 export interface IUserDto {
   new (name: string, email: string, age: number, cpf: string): User;
@@ -31,14 +31,14 @@ export class UserDto {
     }
     throw new Error("Email is invalid");
   }
-  isValidAge(age): number {
+  isValidAge(age: number): number {
     if (age >= 18) {
       return age;
     }
     throw new Error("Age is invalid");
   }
-  isValidCpf(cpf): string {
-    if (cpf.length === 11 && !cpf.match(cpfRegex)) {
+  isValidCpf(cpf: string): string {
+    if (cpf.length === 11 && cpf.match(cpfRegex)) {
       return cpf;
     }
     throw new Error("Cpf is invalid");

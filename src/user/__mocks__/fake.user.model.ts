@@ -1,5 +1,5 @@
 import { Model } from "mongoose";
-import { User, UserModel } from "../schema/user.model";
+import { User, UserModel } from "../model/user.model";
 import { fakeUsers, updatedUser } from "./fake.user.data";
 
 export const fakeUserModel = {

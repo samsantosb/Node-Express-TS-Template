@@ -1,4 +1,4 @@
-import { User } from "../schema/user.model";
+import { User } from "../model/user.model";
 
 export const fakeUsers: User[] = [
   {

@@ -1,4 +1,4 @@
-import { User, UserModel } from "../schema/user.model";
+import { User, UserModel } from "../model/user.model";
 import { Model, Types } from "mongoose";
 
 export class UserRepository {
