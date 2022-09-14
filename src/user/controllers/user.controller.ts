@@ -9,85 +9,64 @@ export class UserController {
     private readonly UserDto: IDtoConstructor,
     private readonly userService: UserService
   ) {}
+
   async getAll(req: Request, res: Response) {
-    try {
-      const users: User[] = await this.userService.getAll();
+    const reponse = await this.userService.getAll();
 
-      if (users.length === 0) {
-        return res.status(StatusCode.NOT_FOUND).json({
-          message: "No users found",
-        });
-      }
-
-      res.status(StatusCode.OK).json(users);
-    } catch (error) {
-      res.status(StatusCode.INTERNAL_SERVER_ERROR).json(error);
+    if ("error" in reponse) {
+      res.status(StatusCode.INTERNAL_SERVER_ERROR).json(reponse);
+      return;
     }
+    res.status(StatusCode.OK).json(reponse);
   }
 
   async getById(req: Request, res: Response) {
-    try {
-      const user = await this.userService.getById(req.params.id);
+    const reponse = await this.userService.getById(req.params.id);
 
-      if (user === null) {
-        return res.status(StatusCode.NOT_FOUND).json({
-          message: "User not found",
-        });
-      }
-
-      res.status(StatusCode.OK).json(user);
-    } catch (error) {
-      res.status(StatusCode.INTERNAL_SERVER_ERROR).json(error);
+    if ("error" in reponse) {
+      res.status(StatusCode.INTERNAL_SERVER_ERROR).json(reponse);
+      return;
     }
+
+    res.status(StatusCode.OK).json(reponse);
   }
 
   async create(req: Request, res: Response) {
-    try {
-      const user = new this.UserDto(await this.userService.create(req.body));
+    const body = { id: req.params.id, ...req.body };
+    const validUser = new this.UserDto(body);
 
-      if (user === null) {
-        return res.status(StatusCode.BAD_REQUEST).json({
-          message: "User not created",
-        });
+    if (validUser) {
+      const reponse = await this.userService.create(validUser);
+      if ("error" in reponse) {
+        res.status(StatusCode.INTERNAL_SERVER_ERROR).json(reponse);
       }
 
-      res.status(StatusCode.CREATED).json(user);
-    } catch (error) {
-      res.status(StatusCode.INTERNAL_SERVER_ERROR).json(error);
+      res.status(StatusCode.CREATED).json(reponse);
     }
   }
 
   async update(req: Request, res: Response) {
-    try {
-      const user = new this.UserDto(
-        await this.userService.update(req.params.id, req.body)
-      );
+    const body = { id: req.params.id, ...req.body };
+    const validUser = new this.UserDto(body);
+    if (validUser) {
+      const reponse = await this.userService.update(req.params.id, validUser);
 
-      if (user === null) {
-        return res.status(StatusCode.NOT_FOUND).json({
-          message: "User not found",
-        });
+      if ("error" in reponse) {
+        res.status(StatusCode.INTERNAL_SERVER_ERROR).json(reponse);
+        return;
       }
 
-      res.status(StatusCode.OK).json(user);
-    } catch (error) {
-      res.status(StatusCode.INTERNAL_SERVER_ERROR).json(error);
+      res.status(StatusCode.OK).json(reponse);
     }
   }
 
   async delete(req: Request, res: Response) {
-    try {
-      const user = await this.userService.delete(req.params.id);
+    const reponse = await this.userService.delete(req.params.id);
 
-      if (user === null) {
-        return res.status(StatusCode.NOT_FOUND).json({
-          message: "User not found",
-        });
-      }
-
-      res.status(StatusCode.OK).json(user);
-    } catch (error) {
-      res.status(StatusCode.INTERNAL_SERVER_ERROR).json(error);
+    if ("error" in reponse) {
+      res.status(StatusCode.INTERNAL_SERVER_ERROR).json(reponse);
     }
+
+    res.status(StatusCode.OK).json(reponse);
   }
 }

@@ -1,61 +1,63 @@
+import { CustomErrors } from "./../../utils/errors.handling";
 import { UserRepository } from "../repositories/user.repository";
 import { User } from "../models/user.model";
 import { Types } from "mongoose";
+import { invalidIdError, promiseError } from "../../utils/errors.handling";
 
 export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
 
-  async getAll(): Promise<User[]> {
+  async getAll(): Promise<User[] | CustomErrors> {
     try {
       const users = await this.userRepository.getAll();
 
       return users;
     } catch (error) {
-      throw new Error("Error");
+      return promiseError(error);
     }
   }
 
-  async getById(id: string): Promise<User> {
+  async getById(id: string): Promise<User | CustomErrors> {
     try {
-      if (!Types.ObjectId.isValid(id)) {
+      if (Types.ObjectId.isValid(id)) {
         const user = await this.userRepository.getById(id);
         return user;
       }
-      throw new Error(`Invalid id: ${id}`);
+      return invalidIdError(id);
     } catch (error) {
-      throw new Error("Error");
+      return promiseError(error);
     }
   }
 
-  async create(user: User): Promise<User> {
+  async create(user: User): Promise<User | CustomErrors> {
     try {
       return this.userRepository.create(user);
     } catch (error) {
-      throw new Error("Error");
+      return promiseError(error);
     }
   }
 
-  async update(id: string, user: User): Promise<User> {
+  async update(id: string, user: User): Promise<User | CustomErrors> {
     try {
-      if (!Types.ObjectId.isValid(id)) {
+      if (Types.ObjectId.isValid(id)) {
         const updatedUser = await this.userRepository.update(id, user);
         return updatedUser;
       }
-      throw new Error(`Invalid id: ${id}`);
+      return invalidIdError(id);
     } catch (error) {
-      throw new Error("Error");
+      return promiseError(error);
     }
   }
 
-  async delete(id: string): Promise<User> {
+  async delete(id: string): Promise<User | CustomErrors> {
     try {
-      if (!Types.ObjectId.isValid(id)) {
+      if (Types.ObjectId.isValid(id)) {
         const deletedUser = await this.userRepository.delete(id);
         return deletedUser;
       }
-      throw new Error(`Invalid id: ${id}`);
+      return invalidIdError(id);
     } catch (error) {
-      throw new Error("Error");
+      return promiseError(error);
     }
   }
 }

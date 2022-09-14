@@ -27,3 +27,5 @@ export const updatedUser = {
   age: 25,
   cpf: "048.607.240-11",
 };
+
+export const fakeId = "632130d41623c49bf7b1c7e9";
