@@ -28,10 +28,10 @@ describe("User Repository", () => {
       const user = await userRepository.getById("1");
       expect(user).toEqual(fakeUsers[0]);
     });
-    it("should return null if user is not found", async () => {
+    it("should return an enpty object if user is not found", async () => {
       jest.spyOn(fakeUserModel, "findById").mockResolvedValueOnce(null);
-      const user = await userRepository.getById("1");
-      expect(user).toBeNull();
+      const result = await userRepository.getById("1");
+      expect(result).toEqual({});
     });
     it("should call userModel.findById method", () => {
       jest.spyOn(fakeUserModel, "findById");
@@ -59,6 +59,13 @@ describe("User Repository", () => {
       userRepository.update("1", fakeUsers[0]);
       expect(fakeUserModel.findByIdAndUpdate).toHaveBeenCalled();
     });
+    it("should return an empty object if user is not found", async () => {
+      jest
+        .spyOn(fakeUserModel, "findByIdAndUpdate")
+        .mockResolvedValueOnce(null);
+      const result = await userRepository.update("1", fakeUsers[0]);
+      expect(result).toEqual({});
+    });
   });
   describe("delete", () => {
     it("should delete a user", async () => {
@@ -69,6 +76,13 @@ describe("User Repository", () => {
       jest.spyOn(fakeUserModel, "findByIdAndDelete");
       userRepository.delete("1");
       expect(fakeUserModel.findByIdAndDelete).toHaveBeenCalled();
+    });
+    it("should return an empty object if user is not found", async () => {
+      jest
+        .spyOn(fakeUserModel, "findByIdAndDelete")
+        .mockResolvedValueOnce(null);
+      const result = await userRepository.delete("1");
+      expect(result).toEqual({});
     });
   });
 });

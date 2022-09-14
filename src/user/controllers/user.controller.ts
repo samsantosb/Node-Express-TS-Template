@@ -11,7 +11,7 @@ export class UserController {
   ) {}
   async getAll(req: Request, res: Response) {
     try {
-      const users: User[] = await this.userService.getAllUsers();
+      const users: User[] = await this.userService.getAll();
 
       if (users.length === 0) {
         return res.status(StatusCode.NOT_FOUND).json({
@@ -27,7 +27,7 @@ export class UserController {
 
   async getById(req: Request, res: Response) {
     try {
-      const user = await this.userService.getUserById(req.params.id);
+      const user = await this.userService.getById(req.params.id);
 
       if (user === null) {
         return res.status(StatusCode.NOT_FOUND).json({
@@ -43,9 +43,7 @@ export class UserController {
 
   async create(req: Request, res: Response) {
     try {
-      const user = new this.UserDto(
-        await this.userService.createUser(req.body)
-      );
+      const user = new this.UserDto(await this.userService.create(req.body));
 
       if (user === null) {
         return res.status(StatusCode.BAD_REQUEST).json({

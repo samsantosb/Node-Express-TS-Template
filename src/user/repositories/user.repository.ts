@@ -5,13 +5,17 @@ export class UserRepository {
   constructor(private readonly userModel: Model<User>) {}
 
   async getAll(): Promise<User[]> {
-    return this.userModel.find();
+    const users = await this.userModel.find();
+    if (!users) {
+      return [] as User[];
+    }
+    return users;
   }
 
   async getById(id: string): Promise<User> {
     const user = await this.userModel.findById(id);
     if (user === null) {
-      throw new Error("User not found");
+      return {} as User;
     }
     return user;
   }
@@ -25,7 +29,7 @@ export class UserRepository {
       new: true,
     });
     if (updatedUser === null) {
-      throw new Error("User not found");
+      return {} as User;
     }
     return updatedUser;
   }
@@ -33,7 +37,7 @@ export class UserRepository {
   async delete(id: string): Promise<User> {
     const deletedUser = await this.userModel.findByIdAndDelete(id);
     if (deletedUser === null) {
-      throw new Error("User not found");
+      return {} as User;
     }
     return deletedUser;
   }
