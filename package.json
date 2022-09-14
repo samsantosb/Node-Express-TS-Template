@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "start": "ts-node-esm app.ts"
+    "start": "ts-node-esm app.ts",
+    "seed": "ts-node-esm ./src/db/mongo.seeder.ts"
   },
   "dependencies": {
     "@types/mongoose": "^5.11.97",

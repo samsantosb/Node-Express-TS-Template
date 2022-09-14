@@ -1,7 +1,7 @@
-import { connection } from "../db/mongo.connection";
+import { mongoConnect } from "../db/mongo.connection";
 
-function user() {
-  connection();
+async function user() {
+  await mongoConnect();
   console.log("Hello World");
 }
 
