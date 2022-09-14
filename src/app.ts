@@ -1,3 +1,3 @@
-import user from "./user/user";
+import users from "./user/user";
 
-user();
+users();

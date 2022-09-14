@@ -15,7 +15,7 @@ interface IUserDto extends IUser {
   isValidAge: (age: number) => number;
   isValidCpf: (cpf: string) => string;
 }
-class UserDto implements IUserDto {
+export class UserDto implements IUserDto {
   user: IUser;
   name: string;
   email: string;
@@ -58,7 +58,6 @@ class UserDto implements IUserDto {
     return JSON.parse(data);
   }
 }
-
 export interface IDtoConstructor {
   new (user: {
     name: string;
