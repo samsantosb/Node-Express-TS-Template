@@ -1,4 +1,6 @@
-export const fakeUsers = [
+import { UserDto } from "../dtos/user.dto";
+
+export const fakeUsers: UserDto[] = [
   {
     name: "John Doe",
     email: "john@gmail.com",
