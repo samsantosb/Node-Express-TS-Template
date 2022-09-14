@@ -1,7 +1,7 @@
-import { UserRepository } from "./../repositories/user.repository";
+import { UserService } from "./../services/user.service";
 import { fakeUsers } from "./fake.user.data";
 
-export const fakeUserRepository = {
+export const fakeUserService = {
   getAll: () => {
     return new Promise((resolve, reject) => {
       resolve(fakeUsers);
@@ -32,4 +32,4 @@ export const fakeUserRepository = {
       reject(new Error("Error"));
     });
   },
-} as any as UserRepository;
+} as any as UserService;
