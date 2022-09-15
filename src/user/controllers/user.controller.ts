@@ -1,14 +1,11 @@
-import { IDtoConstructor } from "./../dtos/user.dto";
+import { UserDto } from "./../dtos/user.dto";
 import { StatusCode } from "../../utils/status.code";
 import { Request, Response } from "express";
 import { UserService } from "../services/user.service";
 import { User } from "../models/user.model";
 
 export class UserController {
-  constructor(
-    private readonly UserDto: IDtoConstructor,
-    private readonly userService: UserService
-  ) {}
+  constructor(private readonly userService: UserService) {}
 
   async getAll(req: Request, res: Response) {
     const reponse = await this.userService.getAll();
@@ -33,7 +30,7 @@ export class UserController {
 
   async create(req: Request, res: Response) {
     const body = { id: req.params.id, ...req.body };
-    const validUser = new this.UserDto(body);
+    const validUser = new UserDto(body);
 
     if (validUser) {
       const reponse = await this.userService.create(validUser);
@@ -47,7 +44,7 @@ export class UserController {
 
   async update(req: Request, res: Response) {
     const body = { id: req.params.id, ...req.body };
-    const validUser = new this.UserDto(body);
+    const validUser = new UserDto(body);
     if (validUser) {
       const reponse = await this.userService.update(req.params.id, validUser);
 

@@ -8,14 +8,8 @@ interface IUser {
   age: number;
   cpf: string;
 }
-interface IUserDto extends IUser {
-  user: IUser;
-  isValidName: (name: string) => string;
-  isValidEmail: (email: string) => string;
-  isValidAge: (age: number) => number;
-  isValidCpf: (cpf: string) => string;
-}
-export class UserDto implements IUserDto {
+
+export class UserDto {
   user: IUser;
   name: string;
   email: string;
@@ -57,12 +51,4 @@ export class UserDto implements IUserDto {
   jsonParser(data: string): IUser {
     return JSON.parse(data);
   }
-}
-export interface IDtoConstructor {
-  new (user: {
-    name: string;
-    email: string;
-    age: number;
-    cpf: string;
-  }): IUserDto;
 }

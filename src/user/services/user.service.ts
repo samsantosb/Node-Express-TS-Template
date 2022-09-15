@@ -1,8 +1,9 @@
-import { CustomErrors } from "./../../utils/errors.handling";
+import { CustomErrors } from "../../utils/error.handling";
 import { UserRepository } from "../repositories/user.repository";
 import { User } from "../models/user.model";
 import { Types } from "mongoose";
-import { invalidIdError, promiseError } from "../../utils/errors.handling";
+import { invalidIdError, promiseError } from "../../utils/error.handling";
+import { response } from "express";
 
 export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
@@ -31,7 +32,8 @@ export class UserService {
 
   async create(user: User): Promise<User | CustomErrors> {
     try {
-      return this.userRepository.create(user);
+      const response = await this.userRepository.create(user);
+      return response;
     } catch (error) {
       return promiseError(error);
     }
