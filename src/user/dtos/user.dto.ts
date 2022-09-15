@@ -1,4 +1,4 @@
-import { emailRegex } from "../utils/regex";
+import { emailRegex } from "../utils/user.regex";
 
 interface IUser {
   id?: string;
@@ -9,13 +9,12 @@ interface IUser {
 }
 
 export class UserDto {
-  user: IUser;
   name: string;
   email: string;
   age: number;
   cpf: string;
 
-  constructor(user: IUser) {
+  constructor(public user: IUser) {
     this.name = this.isValidName(user.name);
     this.email = this.isValidEmail(user.email);
     this.age = this.isValidAge(user.age);

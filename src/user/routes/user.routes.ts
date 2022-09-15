@@ -1,10 +1,12 @@
 import express from "express";
 import { user } from "../factories/user.factory";
 
-const router = express.Router();
+const userRoutes = express.Router();
 
-router.get("/", user.getAll.bind(user));
-router.get("/:id", user.getById.bind(user));
-router.post("/", user.create.bind(user));
-router.put("/:id", user.update.bind(user));
-router.delete("/:id", user.delete.bind(user));
+userRoutes.get("/", user.getAll.bind(user));
+userRoutes.get("/:id", user.getById.bind(user));
+userRoutes.post("/", user.create.bind(user));
+userRoutes.put("/:id", user.update.bind(user));
+userRoutes.delete("/:id", user.delete.bind(user));
+
+export default userRoutes;

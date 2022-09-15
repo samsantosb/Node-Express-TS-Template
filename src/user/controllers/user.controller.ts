@@ -2,6 +2,7 @@ import { UserDto } from "./../dtos/user.dto";
 import { StatusCode } from "../../utils/status.code";
 import { Request, Response } from "express";
 import { UserService } from "../services/user.service";
+import { invalidBody } from "../utils/user.body.validator";
 
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -24,11 +25,21 @@ export class UserController {
       return;
     }
 
+    if ("invalidIdError" in reponse) {
+      res.status(StatusCode.BAD_REQUEST).json(reponse);
+      return;
+    }
+
     res.status(StatusCode.OK).json(reponse);
   }
 
   async create(req: Request, res: Response) {
-    const body = { id: req.params.id, ...req.body };
+    if (invalidBody(req)) {
+      res.status(StatusCode.BAD_REQUEST).json({ message: "Invalid body" });
+      return;
+    }
+
+    const body = req.body;
     const validUser = new UserDto(body);
 
     if (validUser) {
@@ -42,13 +53,24 @@ export class UserController {
   }
 
   async update(req: Request, res: Response) {
-    const body = { id: req.params.id, ...req.body };
-    const validUser = new UserDto(body);
+    if (invalidBody(req)) {
+      res.status(StatusCode.BAD_REQUEST).json({ message: "Invalid body" });
+      return;
+    }
+
+    const data = { id: req.params.id, ...req.body };
+    const validUser = new UserDto(data);
+
     if (validUser) {
       const reponse = await this.userService.update(req.params.id, validUser);
 
       if ("promiseError" in reponse) {
         res.status(StatusCode.INTERNAL_SERVER_ERROR).json(reponse);
+        return;
+      }
+
+      if ("invalidIdError" in reponse) {
+        res.status(StatusCode.BAD_REQUEST).json(reponse);
         return;
       }
 
@@ -61,6 +83,10 @@ export class UserController {
 
     if ("promiseError" in reponse) {
       res.status(StatusCode.INTERNAL_SERVER_ERROR).json(reponse);
+    }
+
+    if ("invalidIdError" in reponse) {
+      res.status(StatusCode.BAD_REQUEST).json(reponse);
     }
 
     res.status(StatusCode.OK).json(reponse);
