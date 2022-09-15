@@ -2,34 +2,9 @@ import { UserService } from "./../services/user.service";
 import { fakeUsers } from "./fake.user.data";
 
 export const fakeUserService = {
-  getAll: () => {
-    return new Promise((resolve, reject) => {
-      resolve(fakeUsers);
-      reject(new Error("Error"));
-    });
-  },
-  getById: () => {
-    return new Promise((resolve, reject) => {
-      resolve(fakeUsers[0]);
-      reject(new Error("Error"));
-    });
-  },
-  create: () => {
-    return new Promise((resolve, reject) => {
-      resolve(fakeUsers[0]);
-      reject(new Error("Error"));
-    });
-  },
-  update: () => {
-    return new Promise((resolve, reject) => {
-      resolve(fakeUsers[0]);
-      reject(new Error("Error"));
-    });
-  },
-  delete: () => {
-    return new Promise((resolve, reject) => {
-      resolve(fakeUsers[0]);
-      reject(new Error("Error"));
-    });
-  },
+  getAll: () => Promise.resolve(fakeUsers),
+  getById: () => Promise.resolve(fakeUsers[0]),
+  create: () => Promise.resolve(fakeUsers[0]),
+  update: () => Promise.resolve(fakeUsers[0]),
+  delete: () => Promise.resolve(fakeUsers[0]),
 } as any as UserService;

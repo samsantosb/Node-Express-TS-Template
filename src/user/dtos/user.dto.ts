@@ -1,4 +1,3 @@
-import { cpfRegex } from "./../utils/regex";
 import { emailRegex } from "../utils/regex";
 
 interface IUser {
@@ -16,12 +15,11 @@ export class UserDto {
   age: number;
   cpf: string;
 
-  constructor(user: string) {
-    this.user = this.jsonParser(user);
-    this.name = this.isValidName(this.user.name);
-    this.email = this.isValidEmail(this.user.email);
-    this.age = this.isValidAge(this.user.age);
-    this.cpf = this.isValidCpf(this.user.cpf);
+  constructor(user: IUser) {
+    this.name = this.isValidName(user.name);
+    this.email = this.isValidEmail(user.email);
+    this.age = this.isValidAge(user.age);
+    this.cpf = this.isValidCpf(user.cpf);
   }
 
   isValidName(name: string): string {
@@ -43,12 +41,9 @@ export class UserDto {
     throw new Error("Age is invalid");
   }
   isValidCpf(cpf: string): string {
-    if (cpf.length === 11 && cpf.match(cpfRegex)) {
+    if (cpf.length === 11) {
       return cpf;
     }
     throw new Error("Cpf is invalid");
-  }
-  jsonParser(data: string): IUser {
-    return JSON.parse(data);
   }
 }

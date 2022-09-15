@@ -2,7 +2,6 @@ import { UserDto } from "./../dtos/user.dto";
 import { StatusCode } from "../../utils/status.code";
 import { Request, Response } from "express";
 import { UserService } from "../services/user.service";
-import { User } from "../models/user.model";
 
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -10,7 +9,7 @@ export class UserController {
   async getAll(req: Request, res: Response) {
     const reponse = await this.userService.getAll();
 
-    if ("error" in reponse) {
+    if ("promiseError" in reponse) {
       res.status(StatusCode.INTERNAL_SERVER_ERROR).json(reponse);
       return;
     }
@@ -20,7 +19,7 @@ export class UserController {
   async getById(req: Request, res: Response) {
     const reponse = await this.userService.getById(req.params.id);
 
-    if ("error" in reponse) {
+    if ("promiseError" in reponse) {
       res.status(StatusCode.INTERNAL_SERVER_ERROR).json(reponse);
       return;
     }
@@ -34,7 +33,7 @@ export class UserController {
 
     if (validUser) {
       const reponse = await this.userService.create(validUser);
-      if ("error" in reponse) {
+      if ("promiseError" in reponse) {
         res.status(StatusCode.INTERNAL_SERVER_ERROR).json(reponse);
       }
 
@@ -48,7 +47,7 @@ export class UserController {
     if (validUser) {
       const reponse = await this.userService.update(req.params.id, validUser);
 
-      if ("error" in reponse) {
+      if ("promiseError" in reponse) {
         res.status(StatusCode.INTERNAL_SERVER_ERROR).json(reponse);
         return;
       }
@@ -60,7 +59,7 @@ export class UserController {
   async delete(req: Request, res: Response) {
     const reponse = await this.userService.delete(req.params.id);
 
-    if ("error" in reponse) {
+    if ("promiseError" in reponse) {
       res.status(StatusCode.INTERNAL_SERVER_ERROR).json(reponse);
     }
 
