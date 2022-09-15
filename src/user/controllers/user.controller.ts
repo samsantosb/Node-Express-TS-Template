@@ -1,5 +1,5 @@
 import { UserDto } from "./../dtos/user.dto";
-import { StatusCode } from "../../utils/status.code";
+import { StatusCode } from "../../global.utils/status.code";
 import { Request, Response } from "express";
 import { UserService } from "../services/user.service";
 import { invalidBody } from "../utils/user.body.validator";
