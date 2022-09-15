@@ -35,7 +35,9 @@ export class UserController {
 
   async create(req: Request, res: Response) {
     if (invalidBody(req)) {
-      res.status(StatusCode.BAD_REQUEST).json({ message: "Invalid body" });
+      res
+        .status(StatusCode.BAD_REQUEST)
+        .json({ invalidBodyError: "invalid body" });
       return;
     }
 
@@ -54,7 +56,9 @@ export class UserController {
 
   async update(req: Request, res: Response) {
     if (invalidBody(req)) {
-      res.status(StatusCode.BAD_REQUEST).json({ message: "Invalid body" });
+      res
+        .status(StatusCode.BAD_REQUEST)
+        .json({ invalidBodyError: "invalid body" });
       return;
     }
 
@@ -76,6 +80,7 @@ export class UserController {
 
       res.status(StatusCode.OK).json(reponse);
     }
+    res.status(StatusCode.BAD_REQUEST).json({ message: "invalid User" });
   }
 
   async delete(req: Request, res: Response) {

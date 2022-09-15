@@ -38,6 +38,14 @@ describe("User Controller", () => {
       expect(res.status).toHaveBeenCalledWith(StatusCode.INTERNAL_SERVER_ERROR);
       expect(res.json).toHaveBeenCalledWith({ promiseError: "error" });
     });
+    it("should return error if id is invalid", async () => {
+      fakeUserService.getById = jest
+        .fn()
+        .mockReturnValueOnce({ invalidIdError: "error" });
+      await userController.getById(req, res);
+      expect(res.status).toHaveBeenCalledWith(StatusCode.BAD_REQUEST);
+      expect(res.json).toHaveBeenCalledWith({ invalidIdError: "error" });
+    });
   });
 
   describe("create", () => {
@@ -84,7 +92,7 @@ describe("User Controller", () => {
     it("should return error if response is error", async () => {
       fakeUserService.delete = jest
         .fn()
-        .mockReturnValueOnce({ error: "error" });
+        .mockReturnValueOnce({ promiseError: "error" });
       await userController.delete(req, res);
       expect(res.status).toHaveBeenCalledWith(StatusCode.INTERNAL_SERVER_ERROR);
       expect(res.json).toHaveBeenCalledWith({ promiseError: "error" });
