@@ -1,7 +1,7 @@
 import { mockResponse, mockRequest } from "../__mocks__/fake.routes";
 import { fakeUserService } from "../__mocks__/fake.user.service";
 import { UserController } from "./user.controller";
-import { fakeUsers } from "../__mocks__/fake.user.data";
+import { fakeId, fakeUsers } from "../__mocks__/fake.user.data";
 import { StatusCode } from "../../global.utils/status.code";
 
 const userController = new UserController(fakeUserService);
@@ -14,37 +14,33 @@ describe("User Controller", () => {
       await userController.getAll(req, res);
       expect(res.json).toHaveBeenCalledWith(fakeUsers);
     });
-    it("should return error if response is error", async () => {
-      fakeUserService.getAll = jest
-        .fn()
-        .mockReturnValueOnce({ promiseError: "error" });
+    it("should return status code 200", async () => {
       await userController.getAll(req, res);
-      expect(res.status).toHaveBeenCalledWith(StatusCode.INTERNAL_SERVER_ERROR);
-      expect(res.json).toHaveBeenCalledWith({ promiseError: "error" });
+      expect(res.status).toHaveBeenCalledWith(StatusCode.OK);
+    });
+    it("should call userService getAll", async () => {
+      const spy = jest.spyOn(fakeUserService, "getAll");
+      await userController.getAll(req, res);
+      expect(spy).toHaveBeenCalled();
     });
   });
 
   describe("getById", () => {
     it("should return user by id", async () => {
-      req.params.id = "1";
+      req.params.id = fakeId;
       await userController.getById(req, res);
       expect(res.json).toHaveBeenCalledWith(fakeUsers[0]);
     });
-    it("should return error if response is error", async () => {
-      fakeUserService.getById = jest
-        .fn()
-        .mockReturnValueOnce({ promiseError: "error" });
+    it("should return status code 200", async () => {
+      req.params.id = fakeId;
       await userController.getById(req, res);
-      expect(res.status).toHaveBeenCalledWith(StatusCode.INTERNAL_SERVER_ERROR);
-      expect(res.json).toHaveBeenCalledWith({ promiseError: "error" });
+      expect(res.status).toHaveBeenCalledWith(StatusCode.OK);
     });
-    it("should return error if id is invalid", async () => {
-      fakeUserService.getById = jest
-        .fn()
-        .mockReturnValueOnce({ invalidIdError: "error" });
+    it("should call userService getById", async () => {
+      const spy = jest.spyOn(fakeUserService, "getById");
+      req.params.id = fakeId;
       await userController.getById(req, res);
-      expect(res.status).toHaveBeenCalledWith(StatusCode.BAD_REQUEST);
-      expect(res.json).toHaveBeenCalledWith({ invalidIdError: "error" });
+      expect(spy).toHaveBeenCalled();
     });
   });
 
@@ -55,13 +51,16 @@ describe("User Controller", () => {
       expect(res.status).toHaveBeenCalledWith(StatusCode.CREATED);
       expect(res.json).toHaveBeenCalledWith(fakeUsers[0]);
     });
-    it("should return error if response is error", async () => {
-      fakeUserService.create = jest
-        .fn()
-        .mockReturnValueOnce({ promiseError: "error" });
+    it("should return status code 201", async () => {
+      req.body = fakeUsers[0];
       await userController.create(req, res);
-      expect(res.status).toHaveBeenCalledWith(StatusCode.INTERNAL_SERVER_ERROR);
-      expect(res.json).toHaveBeenCalledWith({ promiseError: "error" });
+      expect(res.status).toHaveBeenCalledWith(StatusCode.CREATED);
+    });
+    it("should call userService create", async () => {
+      const spy = jest.spyOn(fakeUserService, "create");
+      req.body = fakeUsers[0];
+      await userController.create(req, res);
+      expect(spy).toHaveBeenCalled();
     });
   });
 
@@ -72,30 +71,36 @@ describe("User Controller", () => {
       expect(res.status).toHaveBeenCalledWith(StatusCode.OK);
       expect(res.json).toHaveBeenCalledWith(fakeUsers[0]);
     });
-    it("should return error if response is error", async () => {
-      fakeUserService.update = jest
-        .fn()
-        .mockReturnValueOnce({ error: "error" });
+    it("should return status code 200", async () => {
+      req.body = fakeUsers[0];
       await userController.update(req, res);
-      expect(res.status).toHaveBeenCalledWith(StatusCode.INTERNAL_SERVER_ERROR);
-      expect(res.json).toHaveBeenCalledWith({ promiseError: "error" });
+      expect(res.status).toHaveBeenCalledWith(StatusCode.OK);
+    });
+    it("should call userService update", async () => {
+      const spy = jest.spyOn(fakeUserService, "update");
+      req.body = fakeUsers[0];
+      await userController.update(req, res);
+      expect(spy).toHaveBeenCalled();
     });
   });
 
   describe("delete", () => {
     it("should delete user", async () => {
-      req.params.id = "1";
+      req.params.id = fakeId;
       await userController.delete(req, res);
       expect(res.status).toHaveBeenCalledWith(StatusCode.OK);
       expect(res.json).toHaveBeenCalledWith(fakeUsers[0]);
     });
-    it("should return error if response is error", async () => {
-      fakeUserService.delete = jest
-        .fn()
-        .mockReturnValueOnce({ promiseError: "error" });
+    it("should return status code 200", async () => {
+      req.params.id = fakeId;
       await userController.delete(req, res);
-      expect(res.status).toHaveBeenCalledWith(StatusCode.INTERNAL_SERVER_ERROR);
-      expect(res.json).toHaveBeenCalledWith({ promiseError: "error" });
+      expect(res.status).toHaveBeenCalledWith(StatusCode.OK);
+    });
+    it("should call userService delete", async () => {
+      const spy = jest.spyOn(fakeUserService, "delete");
+      req.params.id = fakeId;
+      await userController.delete(req, res);
+      expect(spy).toHaveBeenCalled();
     });
   });
 });

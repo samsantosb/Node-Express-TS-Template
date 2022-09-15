@@ -30,4 +30,20 @@ export function invalidIdError(id: string): InvalidIdError {
   };
 }
 
-export type CustomErrors = PromiseError | InvalidIdError;
+export type InvalidBodyError = {
+  InvalidBodyError: {
+    message: string;
+    body: unknown;
+  };
+};
+
+export function invalidBodyError(body: unknown): InvalidBodyError {
+  return {
+    InvalidBodyError: {
+      message: "Invalid body",
+      body: body,
+    },
+  };
+}
+
+export type CustomErrors = PromiseError | InvalidIdError | InvalidBodyError;
