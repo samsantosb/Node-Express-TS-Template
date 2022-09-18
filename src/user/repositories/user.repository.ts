@@ -6,7 +6,6 @@ export class UserRepository {
 
   async getAll(): Promise<User[]> {
     const users = await this.userModel.find();
-
     return users;
   }
 

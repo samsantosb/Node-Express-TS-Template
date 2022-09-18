@@ -15,6 +15,7 @@ export class UserController {
       res.status(StatusCode.INTERNAL_SERVER_ERROR).json(reponse);
       return;
     }
+
     res.status(StatusCode.OK).json(reponse);
   }
 
@@ -46,6 +47,7 @@ export class UserController {
     const reponse = await this.userService.create(userDto);
     if ("promiseError" in reponse) {
       res.status(StatusCode.INTERNAL_SERVER_ERROR).json(reponse);
+      return;
     }
 
     res.status(StatusCode.CREATED).json(reponse);
@@ -81,10 +83,12 @@ export class UserController {
 
     if ("promiseError" in reponse) {
       res.status(StatusCode.INTERNAL_SERVER_ERROR).json(reponse);
+      return;
     }
 
     if ("invalidIdError" in reponse) {
       res.status(StatusCode.BAD_REQUEST).json(reponse);
+      return;
     }
 
     res.status(StatusCode.OK).json(reponse);
