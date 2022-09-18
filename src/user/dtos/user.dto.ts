@@ -1,5 +1,3 @@
-import { emailRegex } from "../utils/user.regex";
-
 interface IUser {
   id?: string;
   name: string;
