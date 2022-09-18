@@ -1,4 +1,4 @@
-import { mockResponse, mockRequest } from "../__mocks__/fake.routes";
+import { mockResponse, mockRequest } from "../__mocks__/fake.user.routes";
 import { fakeUserService } from "../__mocks__/fake.user.service";
 import { UserController } from "./user.controller";
 import { fakeId, fakeUsers } from "../__mocks__/fake.user.data";

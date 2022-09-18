@@ -1,6 +1,6 @@
 import { invalidBody } from "./user.body.validator";
 import { Request } from "express";
-import { mockRequest } from "../__mocks__/fake.routes";
+import { mockRequest } from "../__mocks__/fake.user.routes";
 
 const request = mockRequest();
 
