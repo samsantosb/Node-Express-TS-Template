@@ -2,7 +2,7 @@ import { mockResponse, mockRequest } from "../__mocks__/fake.user.routes";
 import { fakeUserService } from "../__mocks__/fake.user.service";
 import { UserController } from "./user.controller";
 import { fakeId, fakeUsers } from "../__mocks__/fake.user.data";
-import { StatusCode } from "../../global.utils/status.code";
+import { StatusCode } from "../../global.utils/status.code.ts";
 
 const userController = new UserController(fakeUserService);
 const req = mockRequest();

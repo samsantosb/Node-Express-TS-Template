@@ -1,4 +1,4 @@
-import { StatusCode } from "./status.code";
+import { StatusCode } from "./status.code.ts";
 
 describe("StatusCode", () => {
   it("should create the status code", () => {
