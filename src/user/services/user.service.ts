@@ -1,8 +1,8 @@
-import { CustomErrors } from "../../global.utils/error.handler";
+import { CustomErrors } from "../../utils/error.handler";
 import { UserRepository } from "../repositories/user.repository";
 import { User } from "../models/user.model";
 import { Types } from "mongoose";
-import { invalidIdError, promiseError } from "../../global.utils/error.handler";
+import { invalidIdError, promiseError } from "../../utils/error.handler";
 import { response } from "express";
 
 export class UserService {

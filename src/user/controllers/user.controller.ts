@@ -1,9 +1,9 @@
 import { UserDto } from "./../dtos/user.dto";
-import { StatusCode } from "../../global.utils/status.code.ts";
+import { StatusCode } from "../../utils/status.code";
 import { Request, Response } from "express";
 import { UserService } from "../services/user.service";
 import { invalidBody } from "../utils/user.body.validator";
-import { invalidBodyError } from "../../global.utils/error.handler";
+import { invalidBodyError } from "../../utils/error.handler";
 
 export class UserController {
   constructor(private readonly userService: UserService) {}
