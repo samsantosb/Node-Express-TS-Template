@@ -8,4 +8,4 @@ export const fakeUserModel = {
   create: () => Promise.resolve(fakeUsers[0] as User),
   findByIdAndUpdate: () => Promise.resolve(updatedUser as User),
   findByIdAndDelete: () => Promise.resolve(fakeUsers[0] as User),
-} as any as Model<User>;
+} as unknown as Model<User>;

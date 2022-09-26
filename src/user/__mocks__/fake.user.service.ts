@@ -7,4 +7,4 @@ export const fakeUserService = {
   create: () => Promise.resolve(fakeUsers[0]),
   update: () => Promise.resolve(fakeUsers[0]),
   delete: () => Promise.resolve(fakeUsers[0]),
-} as any as UserService;
+} as unknown as UserService;
